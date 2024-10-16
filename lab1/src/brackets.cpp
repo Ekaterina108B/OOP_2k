@@ -1,14 +1,15 @@
 #include <iostream>
+#include <string>
 #include "brackets.h"
 
-bool ValidateTheExpression(void){
-    char input;
+bool ValidateTheExpression(std::string input){
+    if (input.size() > 100) { return false; }
+    
     int count_of_opening_brackets = 0;
 
-    std::cin >> input;
-    while (input != '\n'){
-        if (input == '('){ ++count_of_opening_brackets; }
-        else if (input == ')') {--count_of_opening_brackets; }
+    for (size_t c = 0; c < input.size(); ++c){
+        if (input[c] == '('){ ++count_of_opening_brackets; }
+        else if (input[c] == ')') {--count_of_opening_brackets; }
         
         if (count_of_opening_brackets < 0){ return false; }
     }

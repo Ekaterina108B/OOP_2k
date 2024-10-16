@@ -2,5 +2,9 @@
 #include "brackets.h"
 
 bool main(){
-    return ValidateTheExpression();
+    std::string expression;
+    bool result;
+    std::getline(std::cin, expression);
+    result = ValidateTheExpression(expression);
+    return result;
 }
