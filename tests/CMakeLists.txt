@@ -13,4 +13,9 @@ target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_executable(lab2_test )
 
+target_link_libraries(lab2_test PRIVATE GTest::GTest)
+target_include_directories(lab2_test PRIVATE ../lab1/include)
+
+add_test(lab2_test lab2_test)
