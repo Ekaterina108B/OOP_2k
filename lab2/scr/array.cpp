@@ -28,16 +28,26 @@ Array::Array(Array&& other) noexcept : data(other.data), size(other.size) {
     other.size = 0;
 }
 
+Array& Array::operator=(const Array &other) {
+    if (this != &other) {
+        delete[] data;
+    }
+    size = other.size;
+    data = new unsigned char[size];
+    for (size_t i = 0; i<size; ++i) { data[i] = other.data[i]; }
+    return *this;
+}
+
 Array::~Array() noexcept {
     delete[] data;
     size = 0;
 }
 
-size_t Array::GetSize(void){
+size_t Array::GetSize(void) const{
     return size;
 }
 
-unsigned char Array::GetChar(size_t index){
+unsigned char Array::GetChar(size_t index) const{
     if (index >= size){ throw std::out_of_range("Index out of range"); }
     return data[index];
 }

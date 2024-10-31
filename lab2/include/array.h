@@ -11,15 +11,16 @@ private:
 
 public:
     Array();
-    Array(const size_t & n, unsigned char t = 0);
-    Array(const std::initializer_list< unsigned char> &t);
+    Array(const size_t &n, unsigned char t = 0);
+    Array(const std::initializer_list<unsigned char> &t);
     Array(const std::string &t);
     Array(const Array& other);
     Array(Array&& other) noexcept;
+    Array& operator=(const Array &other);
     virtual ~Array() noexcept;
 
-    size_t GetSize(void);
-    unsigned char GetChar(size_t index);
+    size_t GetSize(void) const;
+    unsigned char GetChar(size_t index) const;
     void SetChar(size_t index, unsigned char digit);
 };
 
