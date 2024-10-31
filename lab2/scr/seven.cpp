@@ -12,7 +12,7 @@ Seven::Seven(int number){
     digits = Array(size);
     size_t index = 0;
     while (number != 0) {
-        digits.SetChar(index++, number%7);
+        digits.SetChar(index++, static_cast<unsigned char>(number%7 + '0'));
         number /= 7;
     }
 }
@@ -32,20 +32,22 @@ Seven::Seven(std::string number){
     }
 }
 
+Seven::Seven(const Seven &other) : digits(other.digits) {}
+
 Seven Seven::operator+(const Seven &other){
     size_t max_size = std::max(digits.GetSize(), other.digits.GetSize()) +1;
     Seven result;
     result.digits = Array(max_size);
 
-    unsigned char memory = 0;
+    int memory = 0;
     for (size_t i = 0; i < max_size; ++i){
-        unsigned char first = i < digits.GetSize() ? digits.GetChar(i) : 0;
-        unsigned char second = i < other.digits.GetSize() ? other.digits.GetChar(i) : 0;
-        unsigned char third = first + second + memory;
-        result.digits.SetChar(i, third%7);
+        int first = i < digits.GetSize() ? static_cast<int>(digits.GetChar(i) - '0') : 0;
+        int second = i < other.digits.GetSize() ? static_cast<int>(other.digits.GetChar(i) - '0') : 0;
+        int third = first + second + memory;
+        result.digits.SetChar(i, static_cast<unsigned char>(third%7 + '0'));
         memory = third/7;
     }
-    if (result.digits.GetChar(result.digits.GetSize() - 1) == 0){
+    if (result.digits.GetChar(result.digits.GetSize() - 1) == '0'){
         Array new_digits(result.digits.GetSize() - 1);
         for (size_t i = 0; i < new_digits.GetSize(); ++i) {
             new_digits.SetChar(i, result.digits.GetChar(i));
@@ -60,11 +62,11 @@ Seven Seven::operator-(const Seven &other){
     Seven result;
     result.digits = Array(max_size);
 
-    unsigned char memory = 0;
+    int memory = 0;
     for (size_t i=0; i<max_size; ++i){
-        unsigned char first = i < digits.GetSize() ? digits.GetChar(i) : 0;
-        unsigned char second = i < other.digits.GetSize() ? other.digits.GetChar(i) : 0;
-        unsigned char third = 0;
+        int first = i < digits.GetSize() ? static_cast<int>(digits.GetChar(i) - '0') : 0;
+        int second = i < other.digits.GetSize() ? static_cast<int>(other.digits.GetChar(i) - '0') : 0;
+        int third = 0;
         if ((first > second) || (first == second && memory == 0)){
             third = first - second - memory;
             memory = 0;
@@ -72,10 +74,10 @@ Seven Seven::operator-(const Seven &other){
             third = 7 + first - second - memory;
             memory = 1;
         }
-        result.digits.SetChar(i, third);
+        result.digits.SetChar(i, static_cast<unsigned char>(third + '0'));
     }
     if (memory == 1){
-        result.digits = Array(1);
+        result.digits = Array(1, '0');
     } else if (result.digits.GetChar(result.digits.GetSize() - 1) == 0){
         size_t new_size = result.digits.GetSize();
         while (new_size > 0 && result.digits.GetChar(new_size - 1) == 0) { --new_size; }
@@ -127,10 +129,15 @@ void Seven::removeLeadingZeros(std::string number){
 }
 
 std::string Seven::toStr(void) const {
-    size_t size = digits.GetSize();
     std::string number;
-    for (size_t i = 0; i<size; ++i){
-        number[size - 1 - i] = static_cast<char>(digits.GetChar(i));
+
+    if (digits.GetSize() == 0) { return "0"; }
+
+    for (size_t i = digits.GetSize() - 1; i > 0; --i){
+        std::string c(1, digits.GetChar(i));
+        number += c;
     }
+    std::string c(1, digits.GetChar(0));
+    number += c;
     return number;
 }

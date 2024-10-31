@@ -2,11 +2,13 @@
 #include "seven.h"
 
 void Menu(void) {
+    std::cout << std::endl;
     std::cout << "Выберите операцию:\n";
     std::cout << "1. Сложение\n";
     std::cout << "2. Вычитание\n";
     std::cout << "3. Сравнение\n";
-    std::cout << "4. Выход\n";
+    std::cout << "4. Перевод\n";
+    std::cout << "5. Выход\n";
 }
 
 void Addition(void) {
@@ -60,6 +62,15 @@ void Comparison() {
     }
 }
 
+void Translation(void){
+    int input;
+    std::cout << "Введите десятичное число: ";
+    std::cin >> input;
+    Seven num(input);
+
+    std::cout << "Соответствующее семиричное число: " << num.toStr() << std::endl;
+}
+
 int main() {
     int choice;
 
@@ -79,13 +90,16 @@ int main() {
                 Comparison();
                 break;
             case 4:
+                Translation();
+                break;
+            case 5:
                 std::cout << "Выход из программы." << std::endl;
                 break;
             default:
                 std::cout << "Неверный выбор. Пожалуйста, попробуйте снова." << std::endl;
         }
 
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }

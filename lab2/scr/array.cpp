@@ -2,7 +2,7 @@
 
 Array::Array() : data(nullptr), size(0) {}
 
-Array::Array(const size_t &n, unsigned char t = 0) : size(n) {
+Array::Array(const size_t &n, unsigned char t) : size(n) {
     if (n > 0) {
         data = new unsigned char[n];
         for (size_t i=0; i<n; ++i) { data[i] = t; }
@@ -21,7 +21,14 @@ Array::Array(const std::string &t) : size(t.length()){
     for (size_t i = 0; i<size; ++i){ data[i] = static_cast<unsigned char>(t[i] - '0'); }
 }
 
-Array::Array(const Array &other) : data(other.data), size(other.size) {}
+Array::Array(const Array &other) : size(other.size) {
+    if (size > 0) {
+        data = new unsigned char[size];
+        std::copy(other.data, other.data + size, data);
+    } else {
+        data = nullptr;
+    }
+}
 
 Array::Array(Array&& other) noexcept : data(other.data), size(other.size) {
     other.data = nullptr;

@@ -1,54 +1,135 @@
 #include <gtest/gtest.h>
 #include "seven.h"
 
-TEST(SevenTest, Addition) {
-    Seven num1, num2, result;
+TEST(addition_01, basic_test_set) {
+    std::string result;
+    Seven num1("123");
+    Seven num2("456");
     
-    num1.fromString("123");
-    num2.fromString("456");
-    
-    result = num1 + num2; // Предполагаем, что оператор + перегружен
+    Seven add = num1 + num2;
+    result = add.toStr();
 
-    EXPECT_EQ(result.toString(), "1023"); // Ожидаем результат сложения
+    ASSERT_TRUE(result == "612");
 }
 
-// Тест для проверки вычитания
-TEST(SevenTest, Subtraction) {
-    Seven num1, num2, result;
+TEST(addition_02, basic_test_set) {
+    std::string result;
+    Seven num1("64");
+    Seven num2("10");
     
-    num1.fromString("456");
-    num2.fromString("123");
-    
-    result = num1 - num2; // Предполагаем, что оператор - перегружен
+    Seven add = num1 + num2;
+    result = add.toStr();
 
-    EXPECT_EQ(result.toString(), "333"); // Ожидаем результат вычитания
+    ASSERT_TRUE(result == "104");
 }
 
-// Тест для проверки операций сравнения
-TEST(SevenTest, Comparison) {
-    Seven num1, num2;
+TEST(addition_03, basic_test_set) {
+    std::string result;
+    Seven num1("121");
+    Seven num2("66");
     
-    num1.fromString("123");
-    num2.fromString("456");
-    
-    EXPECT_TRUE(num1 < num2); // Ожидаем, что num1 меньше num2
-    EXPECT_FALSE(num1 > num2); // num1 не больше num2
-    EXPECT_FALSE(num1 == num2); // num1 не равно num2
-    
-    num1.fromString("456");
-    EXPECT_TRUE(num1 == num2); // num1 теперь равно num2
+    Seven add = num1 + num2;
+    result = add.toStr();
+
+    ASSERT_TRUE(result == "220");
 }
 
-// Тест для проверки копирования
-TEST(SevenTest, Copying) {
-    Seven num1;
-    num1.fromString("234");
-    Seven num2 = num1; // Используем оператор присваивания
+TEST(subtraction_01, basic_test_set) {
+    std::string result;
+    Seven num1("456");
+    Seven num2("123");
     
-    EXPECT_EQ(num2.toString(), "234"); // Ожидаем, что num2 равен num1
+    Seven add = num1 - num2;
+    result = add.toStr();
+
+    ASSERT_TRUE(result == "333");
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(subtraction_02, basic_test_set) {
+    std::string result;
+    Seven num1("12");
+    Seven num2("123");
+    
+    Seven add = num1 - num2;
+    result = add.toStr();
+
+    ASSERT_TRUE(result == "0");
+}
+
+TEST(comparison_01, basic_test_set) {
+    Seven num1("123");
+    Seven num2("456");
+    
+    EXPECT_TRUE(num1 < num2);
+}
+
+TEST(comparison_02, basic_test_set) {
+    Seven num1("123");
+    Seven num2("456");
+    
+    EXPECT_FALSE(num1 > num2);
+}
+
+TEST(comparison_03, basic_test_set) {
+    Seven num1("123");
+    Seven num2("456");
+    
+    EXPECT_FALSE(num1 == num2);
+}
+
+TEST(comparison_04, basic_test_set) {
+    Seven num1("456");
+    Seven num2("456");
+    
+    EXPECT_TRUE(num1 == num2);
+}
+
+TEST(copying, basic_test_set) {
+    std::string result;
+    Seven num1("234");
+    Seven num2 = num1;
+    
+    result = num2.toStr();
+
+    EXPECT_TRUE(result == "234");
+}
+
+TEST(translation_01, basic_test_set) {
+    std::string result;
+    int num_10 = 0;
+    Seven num(num_10);
+    
+    result = num.toStr();
+
+    ASSERT_TRUE(result == "0");
+}
+
+TEST(translation_02, basic_test_set) {
+    std::string result;
+    int num_10 = 1;
+    Seven num(num_10);
+    
+    result = num.toStr();
+
+    ASSERT_TRUE(result == "1");
+}
+
+TEST(translation_03, basic_test_set) {
+    std::string result;
+    int num_10 = 7;
+    Seven num(num_10);
+    
+    result = num.toStr();
+
+    ASSERT_TRUE(result == "10");
+}
+
+TEST(translation_04, basic_test_set) {
+    std::string result;
+    int num_10 = 123;
+    Seven num(num_10);
+    
+    result = num.toStr();
+
+    ASSERT_TRUE(result == "234");
 }

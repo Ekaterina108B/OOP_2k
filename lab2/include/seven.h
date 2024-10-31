@@ -12,6 +12,8 @@ public:
     Seven(void);
     Seven(int number);
     Seven(std::string number);
+
+    Seven(const Seven &other);
     Seven operator+(const Seven &other);
     Seven operator-(const Seven &other);
     Seven& operator=(const Seven &other);
