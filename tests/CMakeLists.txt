@@ -28,3 +28,21 @@ target_include_directories(lab1_test+ PRIVATE ../lab1/include)
 
 add_test(lab1_test+ lab1_test+)
 
+
+
+add_executable(test_lab2 test_lab2.cpp ../lab2/scr/array.cpp ../lab2/include/array.h ../lab2/scr/seven.cpp ../lab2/include/seven.h)
+
+target_link_libraries(test_lab2 PRIVATE GTest::GTest)
+target_include_directories(test_lab2 PRIVATE ../lab2/include)
+
+add_test(test_lab2 test_lab2)
+
+
+add_executable(test+_lab2 test+_lab2.cpp ../lab2/scr/array.cpp ../lab2/include/array.h ../lab2/scr/seven.cpp ../lab2/include/seven.h)
+
+target_link_libraries(test+_lab2 PRIVATE GTest::GTest)
+target_include_directories(test+_lab2 PRIVATE ../lab2/include)
+
+add_test(test+_lab2 test_lab2)
+
+
