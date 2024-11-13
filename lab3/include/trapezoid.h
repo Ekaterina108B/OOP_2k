@@ -8,6 +8,7 @@ private:
 
 public:
     Trapezoid() = default;
+    virtual ~Trapezoid() = default;
     
     Point GetCenter() const override;
     double GetArea() const override;
@@ -21,5 +22,5 @@ public:
     friend std::istream& operator>>(std::istream& is, Trapezoid& t);
     
     void Print(std::ostream& os) const override;
-    bool Verification();
+    bool Verification(void) noexcept;
 };

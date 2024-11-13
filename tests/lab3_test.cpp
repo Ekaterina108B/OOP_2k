@@ -4,8 +4,8 @@
 #include "rhombus.h"
 #include <sstream>
 
-// Тесты для Rectangle
-TEST(RectangleTest, CenterCalculation) {
+//-----------------
+TEST(center, RectangleTest) {
     Rectangle rectangle;
     std::stringstream ss("0 0 4 0 4 3 0 3");
     ss >> rectangle;
@@ -15,7 +15,7 @@ TEST(RectangleTest, CenterCalculation) {
     EXPECT_NEAR(center.y, 1.5, 0.0001);
 }
 
-TEST(RectangleTest, AreaCalculation) {
+TEST(area, RectangleTest) {
     Rectangle rectangle;
     std::stringstream ss("0 0 4 0 4 3 0 3");
     ss >> rectangle;
@@ -24,18 +24,18 @@ TEST(RectangleTest, AreaCalculation) {
     EXPECT_NEAR(area, 12.0, 0.0001);
 }
 
-TEST(RectangleTest, Equality) {
-    Rectangle r1, r2;
-    std::stringstream ss1("0 0 4 0 4 3 0 3");
-    std::stringstream ss2("0 0 4 0 4 3 0 3");
-    ss1 >> r1;
-    ss2 >> r2;
+TEST(equality, RectangleTest) {
+    Rectangle rectangle_1, rectangle_2;
+    std::stringstream ss1("0 0 5 0 5 3 0 3");
+    std::stringstream ss2("8 0 11 0 11 5 8 5");
+    ss1 >> rectangle_1;
+    ss2 >> rectangle_2;
     
-    EXPECT_TRUE(r1 == r2);
+    EXPECT_TRUE(rectangle_1 == rectangle_2);
 }
 
-// Тесты для Trapezoid
-TEST(TrapezoidTest, CenterCalculation) {
+//-----------------
+TEST(center, TrapezoidTest) {
     Trapezoid trapezoid;
     std::stringstream ss("0 0 6 0 4 3 2 3");
     ss >> trapezoid;
@@ -45,7 +45,7 @@ TEST(TrapezoidTest, CenterCalculation) {
     EXPECT_NEAR(center.y, 1.5, 0.0001);
 }
 
-TEST(TrapezoidTest, AreaCalculation) {
+TEST(area, TrapezoidTest) {
     Trapezoid trapezoid;
     std::stringstream ss("0 0 6 0 4 3 2 3");
     ss >> trapezoid;
@@ -54,18 +54,18 @@ TEST(TrapezoidTest, AreaCalculation) {
     EXPECT_NEAR(area, 12.0, 0.0001);
 }
 
-TEST(TrapezoidTest, Equality) {
-    Trapezoid t1, t2;
-    std::stringstream ss1("0 0 6 0 4 3 2 3");
-    std::stringstream ss2("0 0 6 0 4 3 2 3");
-    ss1 >> t1;
-    ss2 >> t2;
+TEST(equality, TrapezoidTest) {
+    Trapezoid trapezoid_1, trapezoid_2;
+    std::stringstream ss1("0 0 5 0 5 3 3 3");
+    std::stringstream ss2("8 0 13 0 10 3 8 3");
+    ss1 >> trapezoid_1;
+    ss2 >> trapezoid_2;
     
-    EXPECT_TRUE(t1 == t2);
+    EXPECT_TRUE(trapezoid_1 == trapezoid_2);
 }
 
-// Тесты для Rhombus
-TEST(RhombusTest, CenterCalculation) {
+//-----------------
+TEST(center, RhombusTest) {
     Rhombus rhombus;
     std::stringstream ss("0 2 2 4 4 2 2 0");
     ss >> rhombus;
@@ -75,7 +75,7 @@ TEST(RhombusTest, CenterCalculation) {
     EXPECT_NEAR(center.y, 2.0, 0.0001);
 }
 
-TEST(RhombusTest, AreaCalculation) {
+TEST(area, RhombusTest) {
     Rhombus rhombus;
     std::stringstream ss("0 2 2 4 4 2 2 0");
     ss >> rhombus;
@@ -84,37 +84,37 @@ TEST(RhombusTest, AreaCalculation) {
     EXPECT_NEAR(area, 8.0, 0.0001);
 }
 
-TEST(RhombusTest, Equality) {
-    Rhombus r1, r2;
-    std::stringstream ss1("0 2 2 4 4 2 2 0");
-    std::stringstream ss2("0 2 2 4 4 2 2 0");
-    ss1 >> r1;
-    ss2 >> r2;
+TEST(equality, RhombusTest) {
+    Rhombus rhombus_1, rhombus_2;
+    std::stringstream ss1("0 0 2 -3 4 0 2 3");
+    std::stringstream ss2("6 0 9 -2 12 0 9 2");
+    ss1 >> rhombus_1;
+    ss2 >> rhombus_2;
     
-    EXPECT_TRUE(r1 == r2);
+    EXPECT_TRUE(rhombus_1 == rhombus_2);
 }
 
-// Тесты для операций копирования и перемещения
-TEST(OperationsTest, CopyAssignment) {
-    Rectangle r1;
+//-----------------
+TEST(copy, OperationsTest) {
+    Rectangle rectangle_1;
+    Rectangle rectangle_2;
+
     std::stringstream ss("0 0 4 0 4 3 0 3");
-    ss >> r1;
-    
-    Rectangle r2;
-    r2 = r1;
-    EXPECT_TRUE(r1 == r2);
+    ss >> rectangle_1;
+    rectangle_2 = rectangle_1;
+    EXPECT_TRUE(rectangle_1 == rectangle_2);
 }
 
-TEST(OperationsTest, MoveAssignment) {
-    Rectangle r1;
-    std::stringstream ss("0 0 4 0 4 3 0 3");
-    ss >> r1;
-    
-    Rectangle r2;
-    r2 = std::move(r1);
-    
+TEST(move, OperationsTest) {
+    Rectangle rectangle_1;
+    Rectangle rectangle_2;
     Rectangle expected;
+    
+    std::stringstream ss("0 0 4 0 4 3 0 3");
     std::stringstream ss2("0 0 4 0 4 3 0 3");
     ss2 >> expected;
-    EXPECT_TRUE(r2 == expected);
+    ss >> rectangle_1;
+    rectangle_2 = std::move(rectangle_1);
+    
+    EXPECT_TRUE(rectangle_2 == expected);
 }

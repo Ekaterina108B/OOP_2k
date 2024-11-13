@@ -1,3 +1,4 @@
+#include "figure.h"
 #include "rhombus.h"
 
 //It is null
@@ -14,7 +15,7 @@ Point Rhombus::GetCenter() const {
 double Rhombus::GetArea() const {
     double diagonal_1 = std::sqrt(std::pow(vertexes[2].x - vertexes[0].x, 2) + std::pow(vertexes[2].y - vertexes[0].y, 2));
     double diagonal_2 = std::sqrt(std::pow(vertexes[3].x - vertexes[1].x, 2) + std::pow(vertexes[3].y - vertexes[1].y, 2));
-    return (diagonal_1 * diagonal_1) / 2.0;
+    return (diagonal_1 * diagonal_2) / 2.0;
 }
 
 void Rhombus::Reset() {
@@ -90,7 +91,7 @@ void Rhombus::Print(std::ostream& os) const {
     os << "\n";
 }
 
-bool Rhombus::Verification() noexcept {
+bool Rhombus::Verification(void) noexcept {
     double side_1 = std::pow(vertexes[1].x - vertexes[0].x, 2) + std::pow(vertexes[1].y - vertexes[0].y, 2);
     double side_2 = std::pow(vertexes[2].x - vertexes[1].x, 2) + std::pow(vertexes[2].y - vertexes[1].y, 2);
     double side_3 = std::pow(vertexes[3].x - vertexes[2].x, 2) + std::pow(vertexes[3].y - vertexes[2].y, 2);

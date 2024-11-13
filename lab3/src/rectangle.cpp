@@ -1,3 +1,4 @@
+#include "figure.h"
 #include "rectangle.h"
 
 //It is null
@@ -90,7 +91,7 @@ void Rectangle::Print(std::ostream& os) const {
     os << "\n";
 }
 
-bool Rectangle::Verification() noexcept {
+bool Rectangle::Verification(void) noexcept {
     double width_1 = std::pow(vertexes[3].x - vertexes[0].x, 2) + std::pow(vertexes[3].y - vertexes[0].y, 2);
     double width_2 = std::pow(vertexes[2].x - vertexes[1].x, 2) + std::pow(vertexes[2].y - vertexes[1].y, 2);
     double height_1 = std::pow(vertexes[1].x - vertexes[0].x, 2) + std::pow(vertexes[1].y - vertexes[0].y, 2);

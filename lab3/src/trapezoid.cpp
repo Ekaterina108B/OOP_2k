@@ -1,3 +1,4 @@
+#include "figure.h"
 #include "trapezoid.h"
 
 //It is null
@@ -99,7 +100,7 @@ void Trapezoid::Print(std::ostream& os) const {
     os << "\n";
 }
 
-bool Trapezoid::Verification() noexcept {
+bool Trapezoid::Verification(void) noexcept {
     double k[4];
     for (int i=0; i<4; ++i){
         if (vertexes[i].x == vertexes[(i+1)%4].x){
