@@ -1,14 +1,12 @@
 #pragma once
 #include <iostream>
-#include <type_traits>
+#include <concepts>
 
-template <class T>
+template <typename T>
 concept Scalar = std::is_arithmetic_v<T>;
 
-template <class T>
+template <Scalar T>
 class Point {
-    static_assert(Scalar<T>, "Тип T должен быть скалярным");
-
 private:
     T x;
     T y;

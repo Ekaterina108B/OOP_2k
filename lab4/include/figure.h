@@ -2,14 +2,16 @@
 #include <memory>
 #include "point.h"
 
-template <class T>
+template <Scalar T>
 class Figure {
 public:
     virtual ~Figure() = default;
     
-    virtual Point GetCenter() const = 0;
+    virtual Point<T> GetCenter() const = 0;
     virtual double GetArea() const = 0;
     virtual void Reset() = 0;
+    virtual std::unique_ptr<Figure<T>> Clone() const = 0;
+    virtual std::string GetName() const = 0;
     
     virtual bool operator==(const Figure& other) const = 0;
     virtual Figure& operator=(const Figure& other) = 0;

@@ -13,36 +13,19 @@ target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(lab1_test lab1_tests.cpp ../lab1/src/brackets.cpp ../lab1/include/brackets.h)
+add_executable(lab4_test lab4_tests.cpp ../lab4/include/figure.h ../lab4/include/rectangle.h ../lab4/include/trapezoid.h ../lab4/include/rhombus.h ../lab4/include/point.h ../lab4/include/array.h)
 
-target_link_libraries(lab1_test PRIVATE GTest::GTest)
-target_include_directories(lab1_test PRIVATE ../lab1/include)
+target_link_libraries(lab4_test PRIVATE GTest::GTest)
+target_include_directories(lab4_test PRIVATE ../lab4/include)
 
-add_test(lab1_test lab1_test)
-
-
-add_executable(lab1_test+ lab1_tests+.cpp ../lab1/src/brackets.cpp ../lab1/include/brackets.h)
-
-target_link_libraries(lab1_test+ PRIVATE GTest::GTest)
-target_include_directories(lab1_test+ PRIVATE ../lab1/include)
-
-add_test(lab1_test+ lab1_test+)
+add_test(lab4_test lab4_test)
 
 
+add_executable(lab4_test+ lab4_tests+.cpp ../lab4/include/figure.h ../lab4/include/rectangle.h ../lab4/include/trapezoid.h ../lab4/include/rhombus.h ../lab4/include/point.h ../lab4/include/array.h)
 
-add_executable(test_lab2 test_lab2.cpp ../lab2/scr/array.cpp ../lab2/include/array.h ../lab2/scr/seven.cpp ../lab2/include/seven.h)
+target_link_libraries(lab4_test+ PRIVATE GTest::GTest)
+target_include_directories(lab4_test+ PRIVATE ../lab4/include)
 
-target_link_libraries(test_lab2 PRIVATE GTest::GTest)
-target_include_directories(test_lab2 PRIVATE ../lab2/include)
-
-add_test(test_lab2 test_lab2)
-
-
-add_executable(test+_lab2 test+_lab2.cpp ../lab2/scr/array.cpp ../lab2/include/array.h ../lab2/scr/seven.cpp ../lab2/include/seven.h)
-
-target_link_libraries(test+_lab2 PRIVATE GTest::GTest)
-target_include_directories(test+_lab2 PRIVATE ../lab2/include)
-
-add_test(test+_lab2 test_lab2)
+add_test(lab4_test+ lab4_test+)
 
 
