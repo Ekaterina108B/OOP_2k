@@ -18,6 +18,12 @@ public:
     T GetX() const noexcept { return x; }
     T GetY() const noexcept { return y; }
 
-    void SetX(T x) { this->x = x; }
-    void SetY(T y) { this->y = y; }
+    friend std::ostream& operator<<(std::ostream& os, const Point<T>& point) {
+        os << "(" << point.x << ", " << point.y << ")";
+        return os;
+    }
+    friend std::istream& operator>>(std::istream& is, Point<T>& point) {
+        is >> point.x >> point.y;
+        return is;
+    }
 };

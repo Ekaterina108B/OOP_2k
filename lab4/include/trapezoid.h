@@ -1,98 +1,65 @@
 #pragma once
 #include "figure.h"
 
-template <typename T>
+template <Scalar T>
 class Trapezoid : public Figure<T> {
-private:
-    std::unique_ptr<Point<T>> vertexes[4];
-
 public:
-    Trapezoid() override{
-        for (int i=0; i<4; ++i) {
-            vertexes[i] = std::make_unique<Point<T>>();
-        }
-    };
     virtual ~Trapezoid() = default;
-
-    //----------------------
-
-    Point<T> GetCenter() const override {
-        T center_x = (vertexes[0]->x + vertexes[2]->x) / 2.0;
-        T center_y = (vertexes[0]->y + vertexes[2]->y) / 2.0;
-        return Point<T>(center_x, center_y);
-    }
-    double GetArea() const override{
-        return std::fabs(
-            vertexes[0].x*vertexes[1].y + vertexes[1].x*vertexes[2].y + vertexes[2].x*vertexes[3].y + vertexes[3].x*vertexes[0].y - (
-            vertexes[0].y*vertexes[1].x + vertexes[1].y*vertexes[2].x + vertexes[2].y*vertexes[3].x + vertexes[3].y*vertexes[0].x
-            )
-        ) / 2.0;
-    }
-    void Reset() override{
-        for (int i=0; i<4; ++i){ vertexes[i] = std::make_unique<Point<T>>(0, 0); }
-    }
-    std::unique_ptr<Figure<T>> Clone() const override {
-        auto rect = std::make_unique<Trapezoid<T>>();
-        for (int i=0; i<4; ++i){
-            rect.vertexes[i] = std::make_unique<Point<T>>(other.vertexes[i]->x, other.vertexes[i]->y);
-        }
-        return rect;
-    }
-    virtual std::string GetName() const override { return "Trapezoid"; }
     
+    std::unique_ptr<Figure<T>> Clone() const override {
+        auto trapez = std::make_unique<Trapezoid<T>>();
+        for (size_t i=0; i<this->vertexes.Size(); ++i){
+            trapez->vertexes.Get(i) = std::make_unique<Point<T>>(this->vertexes.Get(i)->GetX(), this->vertexes.Get(i)->GetY());
+        }
+        return trapez;
+    }
+
     //----------------------
 
-    Trapezoid& operator=(const Trapezoid& other){
-        if (this != &other) {
-            for (int i=0; i<4; ++i){
-                vertexes[i] = std::make_unique<Point<T>>(other.vertexes[i]->x, other.vertexes[i]->y); }
-        }
-        return *this;
-    }
-    Trapezoid& operator=(Trapezoid&& other) noexcept{
-        if (this != &other) {
-            for (int i=0; i<4; ++i){ vertexes[i] = std::move(other.vertexes[i];) }
-            other.Reset();
-        }
-        return *this;
-    }
-    bool operator==(const Figure& other) const override{
-        const Trapezoid<T>& r = statuc_cast<const Trapezoid<T>&>(other)
-        double side_1 = std::pow(vertexes[1]->x - vertexes[0]->x, 2) + std::pow(vertexes[1]->y - vertexes[0]->y, 2);
-        double side_2 = std::pow(r->vertexes[1]->x - r->vertexes[0]->x, 2) + std::pow(r->vertexes[1]->y - r->vertexes[0]->y, 2);
-        double diagonal_1v = std::pow(vertexes[2]->x - vertexes[0]->x, 2) + std::pow(vertexes[2]->y - vertexes[0]->y, 2);
-        double diagonal_2v = std::pow(r->vertexes[2]->x - r->vertexes[0]->x, 2) + std::pow(r->vertexes[2]->y - r->vertexes[0]->y, 2);
-        double diagonal_1h = std::pow(vertexes[3]->x - vertexes[1]->x, 2) + std::pow(vertexes[3]->y - vertexes[1]->y, 2);
-        double diagonal_2h = std::pow(r->vertexes[3]->x - r->vertexes[1]->x, 2) + std::pow(r->vertexes[3]->y - r->vertexes[1]->y, 2);
+    bool IsEqual(const Figure<T>& other) const override  {
+        if (const Trapezoid<T>* r = dynamic_cast<const Trapezoid<T>*>(&other)) {
+        double side_11 = std::pow(this->vertexes.Get(1)->GetX() - this->vertexes.Get(0)->GetX(), 2) + std::pow(this->vertexes.Get(1)->GetY() - this->vertexes.Get(0)->GetY(), 2);
+        double side_21 = std::pow(r->vertexes.Get(1)->GetX() - r->vertexes.Get(0)->GetX(), 2) + std::pow(r->vertexes.Get(1)->GetY() - r->vertexes.Get(0)->GetY(), 2);
+        double side_12 = std::pow(this->vertexes.Get(2)->GetX() - this->vertexes.Get(1)->GetX(), 2) + std::pow(this->vertexes.Get(2)->GetY() - this->vertexes.Get(1)->GetY(), 2);
+        double side_22 = std::pow(r->vertexes.Get(2)->GetX() - r->vertexes.Get(1)->GetX(), 2) + std::pow(r->vertexes.Get(2)->GetY() - r->vertexes.Get(1)->GetY(), 2);
+        double side_13 = std::pow(this->vertexes.Get(3)->GetX() - this->vertexes.Get(2)->GetX(), 2) + std::pow(this->vertexes.Get(3)->GetY() - this->vertexes.Get(2)->GetY(), 2);
+        double side_23 = std::pow(r->vertexes.Get(3)->GetX() - r->vertexes.Get(2)->GetX(), 2) + std::pow(r->vertexes.Get(3)->GetY() - r->vertexes.Get(2)->GetY(), 2);
+        double side_14 = std::pow(this->vertexes.Get(3)->GetX() - this->vertexes.Get(0)->GetX(), 2) + std::pow(this->vertexes.Get(3)->GetY() - this->vertexes.Get(0)->GetY(), 2);
+        double side_24 = std::pow(r->vertexes.Get(3)->GetX() - r->vertexes.Get(0)->GetX(), 2) + std::pow(r->vertexes.Get(3)->GetY() - r->vertexes.Get(0)->GetY(), 2);
 
-        if (!(((diagonal_1v == diagonal_2v) && (diagonal_1h == diagonal_2h)) || ((diagonal_1v == diagonal_2h) && (diagonal_1h == diagonal_2v)))) { return false; }
-        if (side_1 != side_2) { return false; }
+        if (side_11 + side_12 + side_13 + side_14 !=  + side_21 + side_22 + side_23 + side_24) { return false; }
+        if (this->GetArea() != other.GetArea()) { return false; }
         return true;
     }
-    friend std::istream& operator>>(std::istream& is, Rectangl<T>& r){
-        for (int i=0; i<4; ++i){
+    return false;
+    }
+
+    friend std::istream& operator>>(std::istream& is, Trapezoid<T>& trapez){
+        trapez.Reset();
+        for (size_t i=0; i<4; ++i){
             T x, y;
             is >> x >> y;
-            r.vertexes[i] = std::make_unique<Point<T>>(x, y);
+            trapez.vertexes.Add(std::make_unique<Point<T>>(x, y));
         }
+        if (!trapez.Verification()){ throw std::invalid_argument("Invalid Trapezoid coordinates"); }
         return is;
     }
 
     //----------------------
 
-    void Print(std::ostream& os) const {
-        os << "Coordinates of the vertices of the Trapezoid:" << std::endl;
-        for (int i=0; i<4; ++i) {
-            os << "(" << vertexes[i]->x << ", " << vertexes[i]->y << ")" << std::endl;
-        }
-        os << "\n";
-    }
+    std::string GetName() const override { return "Trapezoid"; }
 
     bool Verification(void) noexcept {
-        double side_1 = std::pow(vertexes[1]->x - vertexes[0]->x, 2) + std::pow(vertexes[1]->y - vertexes[0]->y, 2);
-        double side_2 = std::pow(vertexes[2]->x - vertexes[1]->x, 2) + std::pow(vertexes[2]->y - vertexes[1]->y, 2);
-        double side_3 = std::pow(vertexes[3]->x - vertexes[2]->x, 2) + std::pow(vertexes[3]->y - vertexes[2]->y, 2);
-        double side_4 = std::pow(vertexes[3]->x - vertexes[0]->x, 2) + std::pow(vertexes[3]->y - vertexes[0]->y, 2);
-        return (side_1 == side_2) && (side_2 == side_3) && (side_3 == side_4);
+        double k[4];
+        for (int i=0; i<4; ++i){
+            if (this->vertexes.Get(i)->GetX() == this->vertexes.Get((i+1)%4)->GetX()){
+                k[i] = std::numeric_limits<double>::infinity();
+            } else {
+                k[i] = (this->vertexes.Get((i+1)%4)->GetY() - this->vertexes.Get(i)->GetY()) / (this->vertexes.Get((i+1)%4)->GetX() - this->vertexes.Get(i)->GetX());
+            }
+        }
+        if ((std::fabs(k[0] - k[2]) < 1e-9) || (std::fabs(k[1] - k[3]) < 1e-9)) { return true; }
+        return false;
     }
+
 };

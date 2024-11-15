@@ -4,8 +4,6 @@
 #include "rhombus.h"
 #include "array.h"
 
-const size_t MAX_FIGURES = 100;
-
 void Menu(void) {
     std::cout << std::endl;
     std::cout << "Выберите операцию:" << std::endl;
@@ -17,21 +15,23 @@ void Menu(void) {
     std::cout << "0. Выход" << std::endl;
 }
 
-void Create_Figure(Array<std::shared_ptr<Figure<double>>& figures){
+void Create_Figure(Array<std::shared_ptr<Figure<double>>> &figures){
     int type;
+    std::cout << std::endl;
     std::cout << "Выберите тип фигуры:\n1 - Прямоугольник,\n2 - Ромб,\n3 - Трапеция\n: ";
     std::cin >> type;
+    std::cout << "Введите через пробел координаты фигуры вида x y:" << std::endl;
 
     if (type == 1){
-        auto rectangle = std::make_unique<Rectangle>();
+        auto rectangle = std::make_unique<Rectangle<double>>();
         std::cin >> *rectangle;
         figures.Add(std::move(rectangle));
     } else if (type == 2){
-        auto rhombus = std::make_unique<Rhombus>();
+        auto rhombus = std::make_unique<Rhombus<double>>();
         std::cin >> *rhombus;
         figures.Add(std::move(rhombus));
     } else if (type == 3){
-        auto trapezoid = std::make_unique<Trapezoid>();
+        auto trapezoid = std::make_unique<Trapezoid<double>>();
         std::cin >> *trapezoid;
         figures.Add(std::move(trapezoid));
     } else {
@@ -39,45 +39,44 @@ void Create_Figure(Array<std::shared_ptr<Figure<double>>& figures){
     }
 }
 
-void Print_Figures(Array<std::shared_ptr<Figure<double>>& figures){
+void Print_Figures(Array<std::shared_ptr<Figure<double>>> &figures){
     if(figures.Size() == 0){
         std::cout << "Список фигур пуст." << std::endl;
         return;
     }
     
-    std::cout << "\nИнформация о фигурах:\n";
+    std::cout << "\nИнформация о фигурах:" << std::endl;
     for (size_t i=0; i<figures.Size(); ++i) {
-        Figure* fig = figures.Get(i);
-        std::cout << "\nКоординаты вершин:\n" << *fig;
-        auto center = fig->GetCenter();
-        std::cout << "Геометрический центр: (" << center.x << ", " << center.y << ")\n";
-        std::cout << "Площадь: " << static_cast<double>(*fig) << std::endl;
+        std::cout << "Фигура №" << i+1 << " (" << figures.Get(i)->GetName() << "):" << std::endl;
+        std::cout << "Координаты вершин: " << *figures.Get(i) << std::endl;
+        std::cout << "Геометрический центр: " << figures.Get(i)->GetCenter() << std::endl;
+        std::cout << "Площадь: " << static_cast<double>(*figures.Get(i)) << std::endl << std::endl;
     }
 }
 
-void Delete_Figure(Array<std::shared_ptr<Figure<double>>& figures){
+void Delete_Figure(Array<std::shared_ptr<Figure<double>>> &figures){
     size_t index = figures.Size();
     std::cout << "Введите номер фигуры для удаления: ";
     std::cin >> index;
     figures.Clear(index - 1);
+    std::cout << "Фигура удалена" << std::endl;
 }
 
-void Delete_ALLFigures(Array<std::shared_ptr<Figure<double>>& figures){
-    figures.ClearAll();
+void Delete_ALLFigures(Array<std::shared_ptr<Figure<double>>> &figures){
+    figures.Reset();
     Print_Figures(figures);
 }
 
-void Calculatoin_Area(Array<std::shared_ptr<Figure<double>>& figures){
+void Calculatoin_Area(Array<std::shared_ptr<Figure<double>>> &figures){
     double area = 0;
     for (size_t i=0; i<figures.Size(); ++i){
-        Figure* fig = figures.Get(i);
-        area += static_cast<double>(*fig);
+        area += static_cast<double>(*figures.Get(i));
     }
-    std::cout << "Общая лощадь: " << area << std::endl;
+    std::cout << "Общая площадь: " << area << std::endl;
 }
 
 int main() {
-    Array<std::shared_ptr<Figure<double>> figures(MAX_FIGURES);
+    Array<std::shared_ptr<Figure<double>>> figures;
     int choice;
     
     do {
