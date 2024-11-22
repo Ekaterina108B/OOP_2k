@@ -15,7 +15,7 @@ public:
 
     explicit pmr_list(std::pmr::memory_resource* resource = nullptr) : head(nullptr), allocator(resource) {}
     
-    ~pmr_list() { clear(); }
+    ~pmr_list() { Clear(); }
 
     void PushFront(const T& value) {
         Node* new_node = allocator.allocate(1);
@@ -27,7 +27,7 @@ public:
         if(head) {
             Node* old_head = head;
             head = head->next;
-            allocator.destroy(old_head);
+            std::allocator_traits<decltype(allocator)>::destroy(allocator, old_head);
             allocator.deallocate(old_head, 1);
         }
     }
@@ -47,21 +47,21 @@ public:
     void PopBack() {
         if(!head) { return; }
         if(!head->next) {
-            allocator.destroy(head);
+            std::allocator_traits<decltype(allocator)>::destroy(allocator, head);
             allocator.deallocate(head, 1);
             head = nullptr;
             return;
         }
         Node* current = head;
         while(current->next->next) { current = current->next; }
-        allocator.destroy(current->next);
+        std::allocator_traits<decltype(allocator)>::destroy(allocator, current->next);
         allocator.deallocate(current->next, 1);
         current->next = nullptr;
     }
 
     void InsertAfter(const T& node, const T& value) {
         Node* current = head;
-        while(current || current->data != node) { current = current->next; }
+        while(current && current->data != node) { current = current->next; }
         if(current == nullptr) { return; }
         Node* new_node = allocator.allocate(1);
         allocator.construct(new_node, value);
@@ -70,15 +70,15 @@ public:
     }
     void EraseAfter(const T& node) {
         Node* current = head;
-        while(current || current->data != node) { current = current->next; }
+        while(current && current->data != node) { current = current->next; }
         if(!current || !current->next){ return; }
         Node* old_node = current->next;
         current->next = old_node->next;
-        allocator.destroy(old_node);
+        std::allocator_traits<decltype(allocator)>::destroy(allocator, old_node);
         allocator.deallocate(old_node, 1);
     }
     
-    void clear() {
+    void Clear() {
         while(head) {
             PopFront();
         }

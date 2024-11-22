@@ -13,19 +13,19 @@ target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(lab4_test lab4_test.cpp ../lab4/include/figure.h ../lab4/include/rectangle.h ../lab4/include/trapezoid.h ../lab4/include/rhombus.h ../lab4/include/point.h ../lab4/include/array.h)
+add_executable(lab5_test lab5_test.cpp ../lab5/src/memory_resource.cpp)
 
-target_link_libraries(lab4_test PRIVATE GTest::GTest)
-target_include_directories(lab4_test PRIVATE ../lab4/include)
+target_link_libraries(lab5_test PRIVATE GTest::GTest)
+target_include_directories(lab5_test PRIVATE ../lab5/include)
 
-add_test(lab4_test lab4_test)
+add_test(lab5_test lab5_test)
 
 
-add_executable(lab4_test+ lab4_test+.cpp ../lab4/include/figure.h ../lab4/include/rectangle.h ../lab4/include/trapezoid.h ../lab4/include/rhombus.h ../lab4/include/point.h ../lab4/include/array.h)
+add_executable(lab5_test+ lab5_test+.cpp ../lab5/src/memory_resource.cpp)
 
-target_link_libraries(lab4_test+ PRIVATE GTest::GTest)
-target_include_directories(lab4_test+ PRIVATE ../lab4/include)
+target_link_libraries(lab5_test+ PRIVATE GTest::GTest)
+target_include_directories(lab5_test+ PRIVATE ../lab5/include)
 
-add_test(lab4_test+ lab4_test+)
+add_test(lab5_test+ lab5_test+)
 
 

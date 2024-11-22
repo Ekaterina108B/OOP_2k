@@ -31,9 +31,15 @@ int main() {
     objectect_2.name = "two";
     objectect_2.data = {4, 5, 6};
     objectect_2.active = false;
+    ComplexType objectect_3;
+    objectect_3.id = 3;
+    objectect_3.value = 3.3;
+    objectect_3.name = "tri";
+    objectect_3.data = {7, 8, 9};
+    objectect_3.active = false;
     complex_list.PushFront(objectect_1);
     complex_list.PushBack(objectect_2);
-    ДОПИШИ ЕЩЁ ЭЛЕМЕНТЫ!!!!!!!!!!!!!!!!!;
+    complex_list.InsertAfter(objectect_1, objectect_3);
     std::cout << "\nComplex list contents:\n";
     for (const auto& object : complex_list) {
         std::cout << "id: " << object.id
