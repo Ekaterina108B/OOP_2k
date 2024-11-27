@@ -33,7 +33,7 @@ void ConcreteVisitorBattle::SeeOpponents(const std::vector<NPC*>& npcs) { oppone
 
 std::vector<NPC*> ConcreteVisitorBattle::GetKilled() const { return killed; }
 
-bool ConcreteBattleVisitor::inRange(const NPC& npc_1, const NPC& npc_2) const {
+bool ConcreteVisitorBattle::inRange(const NPC& npc_1, const NPC& npc_2) const {
     int dx = npc_1.GetX() - npc_2.GetX();
     int dy = npc_1.GetY() - npc_2.GetY();
     return std::sqrt(dx*dx + dy*dy) <= range;

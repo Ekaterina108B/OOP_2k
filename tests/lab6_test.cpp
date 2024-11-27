@@ -24,7 +24,7 @@ TEST_F(GameTest, AddNPC) {
 
     std::stringstream output;
     auto old_buf = std::cout.rdbuf(output.rdbuf());
-    game->printNPCs();
+    game->PrintNPC();
     std::cout.rdbuf(old_buf);
 
     EXPECT_TRUE(output.str().find("Bear TestBear at (100, 100)") != std::string::npos);

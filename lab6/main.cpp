@@ -23,14 +23,14 @@ void MenuChoiceOfNPC() {
     std::cout << "Ваш выбор: ";
 }
 
-void AddNPC(const Game& game) {
+void AddNPC(Game& game) {
     int choice;
-    int count_of_NPC = game.CountOfNPC();
+    size_t count_of_NPC = game.CountOfNPC();
     std::string name;
     int x, y;
 
     MenuChoiceOfNPC();
-    std::sin >> choice;
+    std::cin >> choice;
     std::cout << "Введите координаты вида х, y: ";
     std::cin >> x >> y;
 
@@ -48,30 +48,28 @@ void AddNPC(const Game& game) {
     }
 }
 
-void LoadNPCFromFile(const Game& game) {
+void LoadNPCFromFile(Game& game) {
     try {
-        game.loadFromFile("files/game_state.txt");
+        game.LoadFromFile("files/game_state.txt");
     } catch (const std::exception& e) {
         std::cerr << "Error loading game state: " << e.what() << std::endl;
-        return 1;
     }
 }
 
-void RunBattle(const Game& game) {
+void RunBattle(Game& game) {
     int range;
     std::cout << "Введите диапазон: ";
     std::cin >> range;
     if(range < 0){ range = -range; }
-    game.runBattleMode(range);
+    game.RunBattle(range);
     game.PrintNPC();
 }
 
-void SaveGame(const Game& game) {
+void SaveGame(Game& game) {
     try {
         game.SaveToFile("files/game_state.txt");
     } catch (const std::exception& e) {
         std::cerr << "Error saving game state: " << e.what() << std::endl;
-        return 1;
     }
 }
 
@@ -90,7 +88,7 @@ int main() {
     int choice;
     while(1){
         Menu();
-        std::sin >> choice;
+        std::cin >> choice;
         
         switch (choice) {
         case 1:

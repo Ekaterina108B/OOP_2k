@@ -21,7 +21,7 @@ Game::Game(const std::string& log_filename) : factory(std::make_unique<ConcreteN
 
 void Game::AddNPC(const std::string& type, const std::string& name, int x, int y){
     if(x < 0 || x > 500 || y < 0 || y > 500) { throw std::invalid_argument("Invalid coordinates"); }
-    npsc.push_back(factory->CreateNPC(type, name, x, y));
+    npcs.push_back(factory->CreateNPC(type, name, x, y));
 }
 
 void Game::SaveToFile(const std::string& filename) const {
@@ -42,7 +42,7 @@ void Game::LoadFromFile(const std::string& filename) {
         npcs.clear();
         std::string line;
         while (std::getline(file, line)) {
-            npcs.push_back(factory->loadNPC(line));
+            npcs.push_back(factory->LoadNPC(line));
         }
         file.close();
     } else {
@@ -89,4 +89,4 @@ void Game::AddObserver(std::shared_ptr<Observer> observer) {
     observers.push_back(observer);
 }
 
-void Game::CountOfNPC() const { return npcs.size()}
+size_t Game::CountOfNPC() const noexcept { return npcs.size(); }

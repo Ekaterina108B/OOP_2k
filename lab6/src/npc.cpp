@@ -6,4 +6,4 @@ const std::string& NPC::GetName() const { return name; }
 
 int NPC::GetX() const { return x; }
 
-int NPC::GetX() const { return y; }
+int NPC::GetY() const { return y; }

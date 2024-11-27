@@ -18,14 +18,3 @@ std::unique_ptr<NPC> ConcreteNPCFactory::LoadNPC(const std::string& data) {
     iss >> type >> name >> x >> y;
     return CreateNPC(type, name, x, y);
 }
-    
-
-
-
-
-class ConcreteNPCFactory : public NPCFactory {
-public:
-    std::unique_ptr<NPC> CreateNPC(const std::string& type, const std::string& name, int x, int y) override;
-    std::unique_ptr<NPC> LoadNPC(const std::string& data) override;
-
-};
