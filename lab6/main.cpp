@@ -31,7 +31,7 @@ void AddNPC(Game& game) {
 
     MenuChoiceOfNPC();
     std::cin >> choice;
-    std::cout << "Введите координаты вида х, y: ";
+    std::cout << "Введите координаты вида х y: ";
     std::cin >> x >> y;
 
     if(choice == 1){
@@ -50,7 +50,7 @@ void AddNPC(Game& game) {
 
 void LoadNPCFromFile(Game& game) {
     try {
-        game.LoadFromFile("files/game_state.txt");
+        game.LoadFromFile("game_state.txt");
     } catch (const std::exception& e) {
         std::cerr << "Error loading game state: " << e.what() << std::endl;
     }
@@ -67,7 +67,7 @@ void RunBattle(Game& game) {
 
 void SaveGame(Game& game) {
     try {
-        game.SaveToFile("files/game_state.txt");
+        game.SaveToFile("game_state.txt");
     } catch (const std::exception& e) {
         std::cerr << "Error saving game state: " << e.what() << std::endl;
     }
@@ -76,7 +76,7 @@ void SaveGame(Game& game) {
 
 int main() {
     std::cout << "Инициализация игры";
-    const std::string log_filename = "files/battle_log.txt";
+    const std::string log_filename = "battle_log.txt";
     std::cout << ".";
     Game game(log_filename);
     std::cout << ".";
@@ -86,7 +86,7 @@ int main() {
     std::cout << "Готово!" << std::endl;
 
     int choice;
-    while(1){
+    do {
         Menu();
         std::cin >> choice;
         
