@@ -88,3 +88,5 @@ void Game::RunBattle(int range) {
 void Game::AddObserver(std::shared_ptr<Observer> observer) {
     observers.push_back(observer);
 }
+
+void Game::CountOfNPC() const { return npcs.size()}

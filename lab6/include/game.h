@@ -31,5 +31,6 @@ public:
     void RunBattle(int range);
 
     void AddObserver(std::shared_ptr<Observer> observer);
+    void CountOfNPC() const noexcept;
 
 };
