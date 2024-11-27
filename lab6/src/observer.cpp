@@ -7,6 +7,8 @@ void FileObserver::Update(const std::string& message) {
     if (file.is_open()) {
         file << message << std::endl;
         file.close();
+    } else {
+        std::cerr << "Unable to open file from message: " << filename << std::endl;
     }
 }
 
