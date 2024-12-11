@@ -5,4 +5,7 @@ Elf::Elf(const std::string& name, int x, int y) : NPC(name, x, y) {}
 
 std::string Elf::GetType() const { return "Elf"; }
 
-void Elf::accept(Visitor& visitor) { visitor.Visit(*this); }
+int Elf::GetMoveDistance() const { return MOVE_DISTANCE; }
+int Elf::GetKillRange() const { return KILL_RANGE; }
+
+void Elf::Accept(Visitor& visitor) { visitor.Visit(*this); }
