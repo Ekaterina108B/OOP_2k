@@ -11,3 +11,5 @@ else()
 endif()
 
 add_subdirectory(lab7)
+
+add_subdirectory(tests)
