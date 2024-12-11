@@ -23,6 +23,8 @@ private:
     std::vector<NPC*> opponents;
     std::vector<NPC*> killed;
 
+    bool inRange(const NPC& npc_1, const NPC& npc_2) const;
+
 public:
     ConcreteVisitorBattle(int range);
 
@@ -32,7 +34,5 @@ public:
 
     void SeeOpponents(const std::vector<NPC*>& npcs);
     std::vector<NPC*> GetKilled() const;
-
-    bool inRange(const NPC& npc_1, const NPC& npc_2) const;
 
 };

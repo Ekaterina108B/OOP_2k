@@ -7,4 +7,4 @@ std::string Bear::GetType() const { return "Bear"; }
 int Bear::GetMoveDistance() const { return MOVE_DISTANCE; }
 int Bear::GetKillRange() const { return KILL_RANGE; }
 
-void Bear::accept(Visitor& visitor) { visitor.Visit(*this); }
+void Bear::Accept(Visitor& visitor) { visitor.Visit(*this); }

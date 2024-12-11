@@ -7,4 +7,4 @@ std::string Robber::GetType() const { return "Robber"; }
 int Robber::GetMoveDistance() const { return MOVE_DISTANCE; }
 int Robber::GetKillRange() const { return KILL_RANGE; }
 
-void Robber::accept(Visitor& visitor) { visitor.Visit(*this); }
+void Robber::Accept(Visitor& visitor) { visitor.Visit(*this); }

@@ -12,6 +12,6 @@ public:
     int GetMoveDistance() const override;
     int GetKillRange() const override;
 
-    void accept(Visitor& visitor) override;
+    void Accept(Visitor& visitor) override;
 
 };
