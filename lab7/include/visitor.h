@@ -27,7 +27,7 @@ private:
     void ProcessCombat(NPC* attacker, NPC* defender);
 
 public:
-    ConcreteVisitorBattle(int range);
+    ConcreteVisitorBattle();
 
     void Visit(Elf& elf) override;
     void Visit(Bear& bear) override;
