@@ -74,4 +74,4 @@ bool ConcreteVisitorBattle::CanAttack(const NPC* attacker, const NPC* defender, 
     return false;
 }
 
-void SetOnKillCallback(std::function<void(NPC*, NPC*)> callback){ OnKill = callback; }
+void ConcreteVisitorBattle::SetOnKillCallback(std::function<void(NPC*, NPC*)> callback){ OnKill = callback; }

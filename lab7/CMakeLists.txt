@@ -13,6 +13,9 @@ set(COROUTINE_SOURCES
     main.cpp
 )
 
-add_executable(OOP7_corutine ${COROUTINE_SOURCES})
+add_executable(OOP7_corutine
+    ${COMMON_SOURCES}
+    ${COROUTINE_SOURCES}
+)
 target_include_directories(OOP7_corutine PRIVATE include)
 target_compile_features(OOP7_corutine PRIVATE cxx_std_20)
