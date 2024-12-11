@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <functional>
 #include <cmath>
+#include <random>
 #include "npc.h"
 
 class Elf;
@@ -19,11 +21,10 @@ public:
 
 class ConcreteVisitorBattle : public Visitor {
 private:
-    int range;
     std::vector<NPC*> opponents;
-    std::vector<NPC*> killed;
+    std::function<void(NPC*, NPC*)> OnKill;
 
-    bool inRange(const NPC& npc_1, const NPC& npc_2) const;
+    void ProcessCombat(NPC* attacker, NPC* defender);
 
 public:
     ConcreteVisitorBattle(int range);
@@ -33,6 +34,7 @@ public:
     void Visit(Robber& robber) override;
 
     void SeeOpponents(const std::vector<NPC*>& npcs);
-    std::vector<NPC*> GetKilled() const;
+    void SetOnKillCallback(std::function<void(NPC*, NPC*)> callback);
+    bool CanAttack(const NPC* attacker, const NPC* defender, double distance) const;
 
 };
