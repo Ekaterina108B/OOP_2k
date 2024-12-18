@@ -10,6 +10,6 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-add_subdirectory(lab6)
+add_subdirectory(lab7)
 
 add_subdirectory(tests)
